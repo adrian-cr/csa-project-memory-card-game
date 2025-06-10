@@ -1,0 +1,8 @@
+[
+  { "id": "1", "image": "./images/circle.png" },
+  { "id": "2", "image": "./images/diamond.png" },
+  { "id": "3", "image": "./images/heart.png" },
+  { "id": "4", "image": "./images/spade.png" },
+  { "id": "5", "image": "./images/star.png" },
+  { "id": "6", "image": "./images/triangle.png" }
+  ]
