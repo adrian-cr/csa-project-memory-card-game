@@ -5,12 +5,13 @@ export const initialState = {
   attempts: 0,
   timer: 0,
   isRunning: false,
+  gameOver: false,
 };
 
-export default function GameReducer(state, action) {
+export default function gameReducer(state, action) {
   switch (action.type) {
     case 'SET_CARDS':
-      return { ...state, cards: action.payload };
+      return { ...state, cards: action.payload, gameOver: false };
     case 'SELECT_CARD': {
       const updatedSelection = [...state.selectedCards, action.payload];
       return { ...state, selectedCards: updatedSelection };
@@ -20,20 +21,21 @@ export default function GameReducer(state, action) {
       const firstCard = state.cards.find(card => card.uid === first);
       const secondCard = state.cards.find(card => card.uid === second);
 
-      if (firstCard && secondCard && firstCard.id === secondCard.id) {
-        return {
-          ...state,
-          matchedCards: [...state.matchedCards, first, second],
-          selectedCards: [],
-          attempts: state.attempts + 1,
-        };
-      } else {
-        return {
-          ...state,
-          selectedCards: [],
-          attempts: state.attempts + 1,
-        };
-      }
+      const isMatch = firstCard && secondCard && firstCard.id === secondCard.id;
+      const matchedCards = isMatch
+        ? [...state.matchedCards, first, second]
+        : [...state.matchedCards];
+
+      const allMatched = matchedCards.length === state.cards.length;
+
+      return {
+        ...state,
+        matchedCards,
+        selectedCards: [],
+        attempts: state.attempts + 1,
+        isRunning: allMatched ? false : state.isRunning,
+        gameOver: allMatched,
+      };
     }
     case 'RESET_GAME':
       return { ...initialState, cards: action.payload };

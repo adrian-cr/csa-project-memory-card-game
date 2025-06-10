@@ -1,75 +1,146 @@
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
+  align-items: center;
+  background: linear-gradient(45deg, #c6fffd, #ecd6f0);
+  display: flex;
+  font-family: Geneva, Verdana, sans-serif;
+  justify-content: center;
   margin: 0;
-  background: #f2f2f2;
+  min-height: 100vh;
+  padding: 0;
 }
 
+/* App */
 .app {
-  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  max-height: 90vh;
+  max-width: 800px;
+  padding: 30px 50px;
+  text-align: center;
+  width: 100%;
+}
+.app-title {
+  color: #5f92ff;
+  margin: 0;
+  margin-bottom: 1rem;
 }
 
+/* Scoreboard */
+.scoreboard {
+  align-items: center;
+  background-color: #dadeff;
+  border-radius: 0.75rem;
+  display: flex;
+  flex-flow: column;
+  font-weight: bold;
+  justify-content: center;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  &.game-over {
+    background-color: #866eff;
+    color: #fff;
+    transition: 500ms;
+  }
+  .game-over-msg {
+    margin: 0 0 10px;
+  }
+  .stats {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+}
+
+/* Timer */
+.timer {
+  background: linear-gradient(to right, #ffffff00 0%, #96ceff 20%, #bafffa 50%, #96ceff 80%, #ffffff00 100%);
+  color: #201463;
+  font-size: 1.25rem;
+  padding: 5px 0;
+  margin-bottom: 1rem;
+}
+
+/* Board */
 .game-board {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-  gap: 10px;
-  max-width: 500px;
-  margin: 1rem auto;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
 }
 
+/* Card */
 .card {
-  width: 100%;
-  aspect-ratio: 1/1;
-  perspective: 1000px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  height: 80px;
+  perspective: 1000px;
+  transition: transform 0.3s ease;
+  width: 80px;
+  &:hover {
+    transform: scale(1.05);
+  }
 }
-
 .card-inner {
-  width: 100%;
   height: 100%;
-  transition: transform 0.5s;
-  transform-style: preserve-3d;
   position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+  width: 100%;
 }
-
 .card.flipped .card-inner {
   transform: rotateY(180deg);
 }
-
-.card-front, .card-back {
+.card-front,
+.card-back {
+  backface-visibility: hidden;
+  border-radius: 5px;
+  height: 100%;
   position: absolute;
   width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 8px;
 }
-
 .card-front {
-  background: #ccc;
-}
-
-.card-back {
-  transform: rotateY(180deg);
-  background: #fff;
+  background-image: url("../public/images/card-back.png");
+  background-size: 100% 100%;
   display: flex;
   align-items: center;
+  font-size: 2rem;
   justify-content: center;
-  overflow: hidden;
+}
+.card-back {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  transform: rotateY(180deg);
+  img {
+    height: 50px;
+    width: 50px;
+  }
 }
 
-.card-back img {
-  width: 90%;
-  height: 90%;
-  object-fit: cover;
+/* RestartButton */
+.restart-button {
+  background-color: #5b8ee2;
+  border: none;
+  border-radius: 0.5rem;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 15px;
+  padding: 0.75rem 1.5rem;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: #3c6fd1;
+  }
 }
 
-.timer, .scoreboard {
-  font-size: 1.2rem;
-  margin: 0.5rem;
-}
-
-@media (max-width: 500px) {
+/* MEDIA QUERIES */
+@media (max-width: 600px) {
   .game-board {
-    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 0.5rem;
+    grid-template-columns: repeat(4, 80px);
   }
 }
